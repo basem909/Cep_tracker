@@ -1,0 +1,2 @@
+class CepSearchLog < ApplicationRecord
+end

@@ -1,0 +1,38 @@
+<h1>Busca por CEP</h1>
+<%= form_with url: cep_search_path, method: :post, local: true do |form| %>
+  <%= form.label :cep, "Enter CEP" %>
+  <%= form.text_field :cep %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% if flash[:alert] %>
+  <p style="color: red;"><%= flash[:alert] %></p>
+<% end %>
+
+<% if @result && !@result['error'] %>
+  <h2>Result:</h2>
+  <p>Address: <%= @result["address"] %></p>
+  <p>State: <%= @result["state"] %></p>
+  <p>City: <%= @result["city"] %></p>
+  <p>Coordinates: <%= @result["lat"] %>, <%= @result["lng"] %></p>
+  <div id="map" style="height: 400px; width: 100%;"></div>
+<% end %>
+
+<% if @result && !@result['error'] %>
+  <script>
+    function initMap() {
+      var location = { lat: parseFloat(<%= @result["lat"] %>), lng: parseFloat(<%= @result["lng"] %>) };
+      var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        center: location
+      });
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+    }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+  </script>
+<% end %>

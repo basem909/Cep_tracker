@@ -8,6 +8,12 @@ class CepSearchController < ApplicationController
     @result = CepSearchService.search(params[:cep])
     if @result['error']
       flash.now[:alert] = @result['error']
+    else
+      CepSearchLog.create(
+        cep: @result["cep"],
+        state: @result["state"],
+        city: @result["city"]
+      )
     end
     render :index
   end

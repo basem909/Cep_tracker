@@ -34,9 +34,9 @@
         <p class="mt-4 text-center text-red-600"><%= flash[:alert] %></p>
       <% end %>
 
-      <% if @result && !@result['error'] %>
+      <% if @result && !@result[:error] %>
         <div class="mt-6">
-          <h2 class="text-2xl font-semibold text-center mb-4">Result:</h2>
+          <h2 class="text-2xl font-semibold text-left mb-4">Result:</h2>
           <p class="mb-2"><strong>Address:</strong> <%= @result["address"] %></p>
           <p class="mb-2"><strong>State:</strong> <%= @result["state"] %></p>
           <p class="mb-2"><strong>City:</strong> <%= @result["city"] %></p>
@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <% if @result && !@result['error'] %>
+  <% if @result && !@result[:error] %>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         var location = [parseFloat(<%= @result["lat"] %>), parseFloat(<%= @result["lng"] %>)];

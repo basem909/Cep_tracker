@@ -6,8 +6,8 @@ class CepSearchController < ApplicationController
 
   def search
     @result = CepSearchService.search(params[:cep])
-    if @result['error']
-      flash.now[:alert] = @result['error']
+    if @result[:error]
+      flash.now[:alert] = @result[:error]
     else
       CepSearchLog.create(
         cep: @result["cep"],

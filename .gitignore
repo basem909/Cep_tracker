@@ -36,3 +36,5 @@
 
 # comment the node_modules ignore line
 node_modules/
+/app/assets/builds/*
+!/app/assets/builds/.keep

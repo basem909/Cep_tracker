@@ -43,7 +43,7 @@ RSpec.describe CepSearchLog, type: :model do
 
       most_searched_ceps_by_state = CepSearchLog.most_searched_ceps_by_state
 
-      expect(most_searched_ceps_by_state.size).to eq(3)
+      expect(most_searched_ceps_by_state.length).to eq(3)
       expect(most_searched_ceps_by_state.map { |log| [log.state, log.cep, log.count_id] }).to include(['SP', '01001000', 3])
       expect(most_searched_ceps_by_state.map { |log| [log.state, log.cep, log.count_id] }).to include(['RJ', '20040000', 2])
       expect(most_searched_ceps_by_state.map { |log| [log.state, log.cep, log.count_id] }).to include(['MG', '30130000', 5])

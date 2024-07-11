@@ -30,5 +30,5 @@
 en:
   flash:
     cep_search:
-      invalid_cep: "Please enter a valid CEP."
+      invalid_cep: "Por favor, insira um CEP válido."
 

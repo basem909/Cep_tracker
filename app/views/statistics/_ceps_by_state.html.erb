@@ -1,0 +1,14 @@
+<div class="bg-white p-8 rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-4 text-gray-700">Quantidade de CEPs por Estado</h2>
+  <% if @ceps_by_state.present? %>
+    <ul class="list-disc pl-5 text-gray-600 grid grid-cols-2">
+      <% @ceps_by_state.each do |state, count| %>
+        <% unless state.blank? %>
+          <li><span class="font-medium text-gray-800"><%= state %></span>: <%= count %> buscas</li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-gray-600">Nenhum dado disponível</p>
+  <% end %>
+</div>

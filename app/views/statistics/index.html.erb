@@ -6,31 +6,37 @@
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .background {
+      background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+    }
+    .content {
+      background-color: rgba(255, 255, 255, 0.9); /* White background with 90% opacity */
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased">
-  <div class="container mx-auto p-8">
-    <h1 class="text-4xl font-extrabold mb-8 text-gray-800">Statistics</h1>
-    
-    <div class="bg-white p-8 rounded-lg shadow-md mb-8">
-      <h2 class="text-2xl font-semibold mb-4 text-gray-700">Most Searched CEPs</h2>
-      <ul class="list-disc pl-5 text-gray-600">
-        <% @most_searched_ceps.each do |cep, count| %>
-          <% unless cep.blank? %>
-            <li><span class="font-medium text-gray-800"><%= cep %></span>: <%= count %> searches</li>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
+  <div class="background flex items-center justify-center">
+    <div class="content container mx-auto">
+      <h1 class="text-4xl font-extrabold mb-8 text-gray-800 text-center">Statistics</h1>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <%= render 'most_searched_ceps' %>
+        <%= render 'most_searched_ceps_by_state' %>
+      </div>
 
-    <div class="bg-white p-8 rounded-lg shadow-md">
-      <h2 class="text-2xl font-semibold mb-4 text-gray-700">CEP Searches by State</h2>
-      <ul class="list-disc pl-5 text-gray-600">
-        <% @ceps_by_state.each do |state, count| %>
-          <% unless state.blank? %>
-            <li><span class="font-medium text-gray-800"><%= state %></span>: <%= count %> searches</li>
-          <% end %>
-        <% end %>
-      </ul>
+      <%= render 'ceps_by_state' %>
     </div>
   </div>
 </body>

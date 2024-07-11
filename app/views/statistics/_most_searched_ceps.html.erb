@@ -1,0 +1,14 @@
+<div class="bg-white p-8 rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-4 text-gray-700">CEPs Mais Buscados</h2>
+  <% if @most_searched_ceps.present? %>
+    <ul class="list-disc pl-5 text-gray-600">
+      <% @most_searched_ceps.each do |cep, count| %>
+        <% unless cep.blank? %>
+          <li><span class="font-medium text-gray-800"><%= cep %></span>: <%= count %> buscas</li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-gray-600">Nenhum dado disponível</p>
+  <% end %>
+</div>

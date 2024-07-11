@@ -1,0 +1,12 @@
+<div class="bg-white p-8 rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-4 text-gray-700">Mais Buscados por Estado</h2>
+  <% if @most_searched_ceps_by_state.present? %>
+    <ul class="list-disc pl-5 text-gray-600">
+      <% @most_searched_ceps_by_state.each do |log| %>
+        <li><span class="font-medium text-gray-800"><%= log.state %></span>: <%= log.cep %> (<%= log.count_id %> buscas)</li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-gray-600">Nenhum dado disponível</p>
+  <% end %>
+</div>

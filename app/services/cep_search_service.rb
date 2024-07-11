@@ -3,23 +3,19 @@ class CepSearchService
   base_uri 'https://cep.awesomeapi.com.br/json'
 
   def self.search(cep)
-    begin
-      response = get("/#{cep}")
-      if response.success?
-        response.parsed_response
-      else
-        handle_error(response)
-      end
-    rescue SocketError => e
-      { error: "Network error: #{e.message}" }
-    rescue HTTParty::Error => e
-      { error: "HTTP error: #{e.message}" }
-    rescue StandardError => e
-      { error: "An error occurred: #{e.message}" }
+    response = get("/#{cep}")
+    if response.success?
+      response.parsed_response
+    else
+      handle_error(response)
     end
+  rescue SocketError => e
+    { error: "Network error: #{e.message}" }
+  rescue HTTParty::Error => e
+    { error: "HTTP error: #{e.message}" }
+  rescue StandardError => e
+    { error: "An error occurred: #{e.message}" }
   end
-
-  private
 
   def self.handle_error(response)
     case response.code

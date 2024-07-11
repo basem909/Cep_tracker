@@ -28,4 +28,7 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  flash:
+    cep_search:
+      invalid_cep: "Please enter a valid CEP."
+

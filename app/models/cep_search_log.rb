@@ -1,23 +1,23 @@
 class CepSearchLog < ApplicationRecord
   validates :cep, :city, :state, presence: true
 
-  after_save :clear_cache
   after_destroy :clear_cache
+  after_save :clear_cache
 
   def self.most_searched_ceps(limit = 5)
-    Rails.cache.fetch("most_searched_ceps/#{limit}", expires_in: 1.hours) do
+    Rails.cache.fetch("most_searched_ceps/#{limit}", expires_in: 1.hour) do
       group(:cep).order('count_id DESC').count(:id).first(limit)
     end
   end
 
   def self.ceps_by_state(limit = 8)
-    Rails.cache.fetch("ceps_by_state/#{limit}", expires_in: 1.hours) do
+    Rails.cache.fetch("ceps_by_state/#{limit}", expires_in: 1.hour) do
       group(:state).order('count_id DESC').count(:id).first(limit)
     end
   end
 
   def self.most_searched_ceps_by_state(limit = 5)
-    Rails.cache.fetch("most_searched_ceps_by_state/#{limit}", expires_in: 1.hours) do
+    Rails.cache.fetch("most_searched_ceps_by_state/#{limit}", expires_in: 1.hour) do
       select('state, cep, COUNT(id) as count_id')
         .group('state, cep')
         .order('count_id DESC')

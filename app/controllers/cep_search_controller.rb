@@ -1,8 +1,7 @@
 class CepSearchController < ApplicationController
   before_action :validate_search, only: [:search]
 
-  def index
-  end
+  def index; end
 
   def search
     @result = CepSearchService.search(params[:cep])
@@ -22,9 +21,9 @@ class CepSearchController < ApplicationController
 
   def validate_search
     cep = params[:cep]
-    if cep.blank? || !cep.match?(/^\d+$/)
-      flash.now[:alert] = 'Please enter a valid CEP.'
-      render :index
-    end
+    return unless cep.blank? || !cep.match?(/^\d+$/)
+
+    flash.now[:alert] = I18n.t('flash.cep_search.invalid_cep')
+    render :index
   end
 end

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CepTracker</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "https://unpkg.com/leaflet/dist/leaflet.js" %>
+  <%= stylesheet_link_tag "https://unpkg.com/leaflet/dist/leaflet.css" %>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+  <div class="h-screen relative flex items-center justify-center bg-cover bg-center w-[100vw]" style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
+    <div class="absolute inset-0 bg-gray-900 opacity-50"></div>
+    <div class="relative z-10 w-full max-w-md md:max-w-2xl lg:max-w-4xl bg-white bg-opacity-90 shadow-xl rounded-lg p-8">
+      <h1 class="text-4xl font-bold text-center text-gray-800 mb-6">Busca por CEP</h1>
+      <%= form_with url: cep_search_path, method: :post, local: true, class: "space-y-4" do |form| %>
+        <div>
+          <%= form.label :cep, "Digite o CEP", class: "block text-sm font-medium text-gray-700" %>
+          <%= form.text_field :cep, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+        </div>
+        <div>
+          <%= form.submit "Buscar", class: "w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out" %>
+        </div>
+      <% end %>
+
+      <% if flash[:alert] %>
+        <p class="mt-4 text-center text-red-600"><%= flash[:alert] %></p>
+      <% end %>
+
+      <% if @result && !@result[:error] %>
+        <div class="mt-6">
+          <h2 class="text-2xl font-semibold text-left mb-4">Resultado:</h2>
+          <p class="mb-2"><strong>Endereço:</strong> <%= @result["address"] %></p>
+          <p class="mb-2"><strong>Estado:</strong> <%= @result["state"] %></p>
+          <p class="mb-2"><strong>Cidade:</strong> <%= @result["city"] %></p>
+          <p class="mb-4"><strong>Coordenadas:</strong> <%= @result["lat"] %>, <%= @result["lng"] %></p>
+          <div id="map" class="w-full h-64 rounded-md shadow-sm"></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @result && !@result[:error] %>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var location = [parseFloat(<%= @result["lat"] %>), parseFloat(<%= @result["lng"] %>)];
+        var map = L.map('map').setView(location, 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker(location).addTo(map);
+      });
+    </script>
+  <% end %>
+</body>
+</html>

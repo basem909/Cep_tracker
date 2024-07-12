@@ -41,7 +41,7 @@ RSpec.describe CepSearchController, type: :controller do
     context 'with invalid parameters' do
       it 'does not call the CepSearchService and sets a flash alert' do
         post :search, params: { cep: invalid_cep }
-        expect(flash.now[:alert]).to eq('Please enter a valid CEP.')
+        expect(flash.now[:alert]).to eq('Por favor, insira um CEP válido.')
         expect(response).to render_template(:index)
       end
     end
@@ -76,7 +76,7 @@ RSpec.describe CepSearchController, type: :controller do
 
       it 'renders index with a flash alert for an invalid CEP' do
         get :dummy_action, params: { cep: 'invalid_cep' }
-        expect(flash.now[:alert]).to eq('Please enter a valid CEP.')
+        expect(flash.now[:alert]).to eq('Por favor, insira um CEP válido.')
         expect(response).to render_template(:index)
       end
 

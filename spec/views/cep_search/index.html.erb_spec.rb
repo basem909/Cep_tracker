@@ -9,19 +9,19 @@ RSpec.describe "cep_search/index.html.erb", type: :view do
     render
 
     expect(rendered).to have_selector('h1', text: 'Busca por CEP')
-    expect(rendered).to have_selector('label', text: 'Enter CEP')
+    expect(rendered).to have_selector('label', text: 'Digite o CEP')
     expect(rendered).to have_selector('input[type=text][name="cep"]')
-    expect(rendered).to have_selector('input[type=submit][value="Search"]')
+    expect(rendered).to have_selector('input[type=submit][value="Buscar"]')
   end
 
   context "when there is a flash alert" do
     before do
-      flash[:alert] = 'Please enter a valid CEP.'
+      flash[:alert] = 'Por favor, insira um CEP válido.'
     end
 
     it "displays the flash alert" do
       render
-      expect(rendered).to have_selector('p.text-center.text-red-600', text: 'Please enter a valid CEP.')
+      expect(rendered).to have_selector('p.text-center.text-red-600', text: 'Por favor, insira um CEP válido.')
     end
   end
 
@@ -39,11 +39,11 @@ RSpec.describe "cep_search/index.html.erb", type: :view do
     it "displays the search result" do
       render
 
-      expect(rendered).to have_selector('h2', text: 'Result:')
-      expect(rendered).to have_selector('p', text: 'Address: Praça da Sé')
-      expect(rendered).to have_selector('p', text: 'State: SP')
-      expect(rendered).to have_selector('p', text: 'City: São Paulo')
-      expect(rendered).to have_selector('p', text: 'Coordinates: -23.550520, -46.633308')
+      expect(rendered).to have_selector('h2', text: 'Resultado:')
+      expect(rendered).to have_selector('p', text: 'Endereço: Praça da Sé')
+      expect(rendered).to have_selector('p', text: 'Estado: SP')
+      expect(rendered).to have_selector('p', text: 'Cidade: São Paulo')
+      expect(rendered).to have_selector('p', text: 'Coordenadas: -23.550520, -46.633308')
       expect(rendered).to have_selector('div#map')
     end
   end

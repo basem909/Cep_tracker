@@ -4,7 +4,6 @@
 # incluindo os CEPs mais buscados, a contagem de buscas de CEP por estado e os CEPs mais
 # buscados por estado.
 class StatisticsController < ApplicationController
-
   # Renderiza a página inicial de estatísticas.
   #
   # Busca os CEPs mais buscados, a contagem de buscas de CEP por estado e os CEPs mais

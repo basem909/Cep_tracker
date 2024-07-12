@@ -5,7 +5,7 @@
 # recuperar os CEPs mais buscados, a contagem de buscas de CEP por estado e os CEPs mais
 # buscados por estado.
 class CepSearchLog < ApplicationRecord
-  validates :cep, :city, :state, presença: true
+  validates :cep, :city, :state, presence: true
 
   after_destroy :clear_cache
   after_save :clear_cache

@@ -83,7 +83,8 @@ ruby bin/rspec
 
 ### Documentação
 
-Para gerar a documentação usando YARD, execute o seguinte comando:
+- [documentação video](https://www.loom.com/share/08a79f946c8147d488100ca0761fcbf3?sid=36e1c30c-d580-4428-b0ac-568e27f00053)
+- Para gerar a documentação usando YARD, execute o seguinte comando:
 
 ```sh
 bundle exec yard doc
